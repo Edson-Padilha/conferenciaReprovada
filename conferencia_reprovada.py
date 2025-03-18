@@ -16,6 +16,7 @@ porta_smtp = os.getenv("PORTA_SMTP")
 servidor = os.getenv("SERVIDOR")
 porta_servidor = os.getenv("PORTA_SERVIDOR")
 name = os.getenv("NAME")
+destinatario = os.getenv("DESTINATARIO")
 
 print(usuario_oracle)
 class ConexaoOracle:
@@ -145,6 +146,12 @@ conexao = conexao_oracle.conectar()
 if conexao:
     conferencia_xml = ConferenciaXML(conexao)
     resultados = conferencia_xml.consultar_conferencias()
+
+    if not resultados:
+        print("Nenhuma conferência XML reprovada encontrada.")
+        conexao_oracle.desconectar()
+        exit()
+        
     corpo_email = conferencia_xml.formatar_email(resultados)
 
     email_sender = EmailSender(email_remetente, senha_email, servidor_smtp, porta_smtp)
