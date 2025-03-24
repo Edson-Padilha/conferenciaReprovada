@@ -155,6 +155,6 @@ if conexao:
     corpo_email = conferencia_xml.formatar_email(resultados)
 
     email_sender = EmailSender(email_remetente, senha_email, servidor_smtp, porta_smtp)
-    email_sender.enviar_email(email_remetente, 'Conferências XML Reprovadas', corpo_email)
+    email_sender.enviar_email(destinatario,'Conferências XML Reprovadas', corpo_email)
 
     conexao_oracle.desconectar()
